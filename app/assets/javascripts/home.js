@@ -2,7 +2,7 @@ function FormValidator(jqueryFormObject) {
 	this.$form = jqueryFormObject;
 	this.formElements = [];
 	this.invalidFormElements = [];
-	
+
 	this.init = function() {
 		console.debug('Initializing FormValidator');
 		var self = this;
@@ -22,7 +22,7 @@ function FormValidator(jqueryFormObject) {
 	this.doValidation = function(e) {
 		var self = this;
 		this.reset(); //Reset our form (remove error states, etc) to start fresh and redo validation
-		
+
 		this.formElements.map(function($formElement) {
 			//required form validation
 			if($formElement.hasClass('required')) {
@@ -34,6 +34,12 @@ function FormValidator(jqueryFormObject) {
 			//minimum length form validation
 			if($formElement.hasClass('min-length')) {
 				if(!self.validateMinimumLength($formElement.val(), $formElement.data('length'))) {
+					self.invalidateFormElement($formElement);
+				}
+			}
+
+			if($formElement.hasClass('max-length')) {
+				if(!self.validateMaximumLength($formElement.val(), $formElement.data('length'))) {
 					self.invalidateFormElement($formElement);
 				}
 			}
@@ -86,6 +92,14 @@ function FormValidator(jqueryFormObject) {
 
 	this.validateMinimumLength = function(value, length) {
 		if(value !== null && value.length > length) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	this.validateMaximumLength = function(value, length) {
+		if(value !== null && value.length < length) {
 			return true;
 		} else {
 			return false;
