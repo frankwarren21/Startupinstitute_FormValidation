@@ -1,0 +1,10 @@
+<h1>Home#index</h1>
+<p>Find me in app/views/home/index.html.erb</p>
+
+<%= form_for :message, :url => '/thank-you' do |f| %>
+	<div class="form-element"><label><span>First name:</span> <%= f.text_field :first_name, :class => 'required' %></label></div>
+	<div class="form-element"><label><span>Last name:</span> <%= f.text_field :last_name, :class => '' %></label></div>
+	<div class="form-element"><label><span>Email:</span> <%= f.text_field :email, :class => 'required email' %></label></div>
+	<div class="form-element"><label><span>Message:</span> <%= f.text_area :message, :class => 'required min-length', 'data-length' => '4' %></label></div>
+	<div><%= f.submit %></div>
+<% end %>
